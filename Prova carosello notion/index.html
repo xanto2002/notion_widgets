@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Carosello con Bootstrap</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <img id="carousel-image" src="images/immagine1.png" alt="/images/immagine 1" style="max-width: 100%;" class="mb-4">
+        </div>
+        <div class="col-md-6">
+            <div class="mb-4">
+                <div id="carousel-text">
+                    <p>Testo 1 - Paragrafo 1</p>
+                    <p>Testo 1 - Paragrafo 2</p>
+                </div>
+            </div>
+        </div>
+        <div class="text-center col-md-12">
+            <button id="prev-button" class="btn btn-primary">Precedente</button>
+            <button id="next-button" class="btn btn-primary">Successivo</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Definisci le immagini e i testi associati
+    const images = ["images/immagine1.png", "images/immagine2.png", "images/immagine3.png", "images/immagine4.png", "images/immagine5.png", "images/immagine6.png", "images/immagine7.png"];
+    const texts = [
+        "Il dispositivo in questo momento è statico e si trova nello stato 'Wait for call 0 frome above'",
+        "Arriva un messaggio da un applicazione. Mando i dati e entro nello stato di 'Wait for Ack or NAK 0'",
+        "Quando mi arriva la conferma che il pacchetto è stato ricevuto, entro nello stato 'Wait for call 1 from above'",
+        "Arriva un messaggio da un applicazione. Mando i dati e entro nello stato di 'Wait for Ack or NAK 1'",
+        "Quando mi arriva la conferma che il pacchetto è stato ricevuto, ritorno nello stato 'Wait for call 0 from above'" +
+        "<br> Da qui ricomincio ad usare il sequence number 0 per mandare un terzo pacchetto",
+        "Nel caso in cui sono nello statp 'Wait for ACK or NAK 0' e non ricevo la conferma che il pacchetto è stato ricevuto," +
+        "ritrasmetto il pacchetto e rimango nello stesso stato",
+        "Stessa cosa, nel caso in cui sono nello statp 'Wait for ACK or NAK 1' e non ricevo la conferma che il pacchetto è stato ricevuto," +
+        "ritrasmetto il pacchetto e rimango nello stesso stato"
+    ];
+    
+    let currentIndex = 0;
+
+    // Aggiungi gestori per i bottoni
+    $("#prev-button").click(function () {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
+
+    $("#next-button").click(function () {
+        if (currentIndex < images.length - 1) {
+            currentIndex++;
+            updateCarousel();
+        }
+    });
+
+    // Funzione per aggiornare il carosello
+    function updateCarousel() {
+        $("#carousel-image").attr("src", images[currentIndex]);
+        // Utilizza DOMParser per interpretare il testo HTML
+        const parser = new DOMParser();
+        const parsedText = parser.parseFromString(texts[currentIndex], "text/html");
+        $("#carousel-text").html(parsedText.body.innerHTML);    }
+
+    // Inizializza il carosello
+    updateCarousel();
+</script>
+
+</body>
+</html>
