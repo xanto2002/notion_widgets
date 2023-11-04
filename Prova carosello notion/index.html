@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Carosello con Bootstrap</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <img id="carousel-image" src="immagine1.png" alt="Immagine 1" style="max-width: 100%;">
+        </div>
+        <div class="col-md-6">
+            <h1 id="carousel-text">Testo 1</h1>
+        </div>
+        <div class="col-md-12">
+            <div class="text-center">
+                <button id="prev-button" class="btn btn-primary">Precedente</button>
+                <button id="next-button" class="btn btn-primary">Successivo</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Definisci le immagini e i testi associati
+        const images = ["immagine1.png", "immagine2.png", "immagine3.png", "immagine4.png"
+            , "immagine5.png", "immagine6.png", "immagine7.png", "immagine8.png"];
+
+        const texts = [
+            "Testo 1",
+            "Testo 2",
+            "Testo 3",
+            "Testo 4",
+            "Testo 5",
+            "Testo 6",
+            "Testo 7",
+            "Testo 8"
+        ];
+
+        let currentIndex = 0;
+
+        // Aggiungi gestori per i bottoni
+        $("#prev-button").click(function () {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCarousel();
+            }
+        });
+
+        $("#next-button").click(function () {
+            if (currentIndex < images.length - 1) {
+                currentIndex++;
+                updateCarousel();
+            }
+        });
+
+        // Funzione per aggiornare il carosello
+        function updateCarousel() {
+            $("#carousel-image").attr("src", images[currentIndex]);
+            $("#carousel-text").text(texts[currentIndex]);
+        }
+
+        // Inizializza il carosello
+        updateCarousel();
+    </script>
+
+</body>
+</html>
